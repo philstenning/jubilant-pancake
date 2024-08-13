@@ -37,8 +37,14 @@ async function main() {
   //   remove all files
   const currentItems = await getCurrentItems(client, bucketName, prefix)
   if (currentItems !== undefined) {
-    for (const item in currentItems) {
-      await deleteFile(client, item, bucketName)
+    console.log(`deleting (${currentItems.length}) files`)
+    for (const item of currentItems) {
+        let counter = 1
+      if (item) {
+        await deleteFile(client, item, bucketName)
+        console.log(`deleted ${counter} of ${currentItems.length}`)
+        counter++
+      }
     }
   }
 
@@ -46,10 +52,10 @@ async function main() {
   const allEmails = getTempEmailAddresses()
   const hashed = hashEmails(allEmails)
   let counter = 1
-  for (const email in hashed) {
+  for (const email of hashed) {
     const fileName = `${prefix}${email}.jpg`
-    console.log(`added file:${fileName}`)
     await putFile(client, fileName, counter.toString(), bucketName)
+    console.log(`added file ${counter} of ${allEmails.length}: ${fileName}`)
     counter++
   }
 

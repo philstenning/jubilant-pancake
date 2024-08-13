@@ -22,19 +22,26 @@ async function hashEmails(emails: string[]) {
 }
 
 async function main() {
-  const client = createS3Client(region, accesskey, secret)
+//   const client = createS3Client(region, accesskey, secret)
 
-  //   remove all files
-  const currentItems = await getCurrentItems(client, bucketName, prefix)
-  currentItems?.forEach((item) => {
-    if (item) {
-      deleteFile(client, item, bucketName)
-    }
-  })
+//   //   remove all files
+//   const currentItems = await getCurrentItems(client, bucketName, prefix)
+//   currentItems?.forEach((item) => {
+//     if (item) {
+//       deleteFile(client, item, bucketName)
+//     }
+//   })
 
   // add new files
-//   const emails = await getTempEmailAddresses()
-//   const hashed = await hashEmails(emails)
+  const emails = await getTempEmailAddresses()
+  const hashed = await hashEmails(emails)
+
+  for (const email of hashed) {
+    const fileName = `${prefix}${email}.jpg`
+    console.log(`added file:${fileName}`)
+    // await putFile(client, fileName, counter.toString(), bucketName)
+    // counter++
+  }
 //   hashed.forEach((email, i) => {
 //     const fileName = `${prefix}${email}.jpg`
 //     console.log(fileName)
