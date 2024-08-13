@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx src/index.ts",
-    "publish": "tsx src/publish.ts"
+    "emails": "tsx src/publish.ts"
   },
   "keywords": [],
   "author": "",
