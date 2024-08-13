@@ -30,6 +30,6 @@ jobs:
       - name: run publish
         env:
           EMAILS: ${{ secrets.EMAILS }}
-        run: pnpm publish
+        run: pnpm emails:publish
         # with:
         #   EMAILS: ${{ secrets.EMAILS }}
