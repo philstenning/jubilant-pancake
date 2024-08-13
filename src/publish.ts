@@ -13,8 +13,9 @@ function hashEmails(emails: string[]) {
 }
 
 async function main() {
-  const emails = getTempEmailAddresses()
-  const hashedEmails = hashEmails(emails)
+  console.log(emails)
+  const emails2 = getTempEmailAddresses()
+  const hashedEmails = hashEmails(emails2)
   hashedEmails.forEach((email) => console.log(email))
 }
 
