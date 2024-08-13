@@ -29,8 +29,8 @@ jobs:
 
       - name: run publish
         env:
-          EMAILS: ${{ env.V_EMAILS }}
-        #   EMAILS: ${{ secrets.EMAILS }}
+        #   EMAILS_2: ${{ env.V_EMAILS }}
+          EMAILS: ${{ secrets.EMAILS }}
         run: pnpm emails:publish
         # with:
         #   EMAILS: ${{ secrets.EMAILS }}

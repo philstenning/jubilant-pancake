@@ -1,6 +1,6 @@
 import { sha256 } from 'js-sha256'
 
-console.log(process.env.EMAILS ?? 'my-emails are secret')
+// console.log(process.env.EMAILS ?? 'my-emails are secret')
 const emails = process.env.EMAILS ?? 'my-emails are secret'
 console.log('working')
 
