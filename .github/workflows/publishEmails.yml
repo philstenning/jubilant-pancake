@@ -1,0 +1,35 @@
+name: Publish Emails to S3 Bucket
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install  pnpm
+        uses: pnpm/action-setup@v4
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: run publish
+        env:
+          EMAILS: ${{ secrets.EMAILS }}
+        run: pnpm publish
+        # with:
+        #   EMAILS: ${{ secrets.EMAILS }}
