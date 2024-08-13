@@ -5,7 +5,7 @@ import { createS3Client, getCurrentItems, deleteFile, putFile } from './s3'
 if (process.env.EMAILS === undefined) {
   throw new Error('EMAILS environment variable is not set')
 }
-if (process.env.BUCKET_NAME === undefined) {
+if (process.env.S3_BUCKET === undefined) {
   throw new Error('BUCKET_NAME environment variable is empty')
 }
 if (process.env.S3_ACCESS_KEY === undefined) {
