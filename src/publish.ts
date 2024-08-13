@@ -5,7 +5,7 @@ const emails = process.env.EMAILS ?? 'my-emails are secret'
 console.log('working')
 
 function getTempEmailAddresses() {
-  return emails.split('\r\n') // this is for windows check in github secrets
+  return emails.split('\n') // this is for windows check in github secrets
 }
 
 function hashEmails(emails: string[]) {
