@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: run publish
+      - name: run publish Emails
         env:
           EMAILS: ${{ secrets.EMAILS }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}

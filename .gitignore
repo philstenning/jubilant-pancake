@@ -19,7 +19,6 @@ tsdoc
 /**/cypress/videos
 /**/cypress/screenshots
 
-packages/imageStorageExplorer/media/sidepanel
-packages/imageStorageExplorer/media/web
-packages/imageStorageExplorer/media/info
+
 distBeta
+public/rai/images/svg/

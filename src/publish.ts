@@ -38,8 +38,8 @@ async function main() {
   const currentItems = await getCurrentItems(client, bucketName, prefix)
   if (currentItems !== undefined) {
     console.log(`deleting (${currentItems.length}) files`)
+    let counter = 1
     for (const item of currentItems) {
-        let counter = 1
       if (item) {
         await deleteFile(client, item, bucketName)
         console.log(`deleted ${counter} of ${currentItems.length}`)

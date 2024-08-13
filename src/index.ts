@@ -1,9 +1,10 @@
 import 'dotenv/config'
-import { readFile } from 'fs/promises'
+import { readFile, writeFile } from 'fs/promises'
 import { join } from 'path'
 import { sha256 } from 'js-sha256'
-import { createS3Client, getCurrentItems, deleteFile, putFile } from './s3'
-
+import { rimraf } from 'rimraf'
+// import { createS3Client, getCurrentItems, deleteFile, putFile } from './s3'
+import { makeDirectory } from 'make-dir'
 async function getTempEmailAddresses() {
   const __dirname = join(process.cwd(), 'src')
   const dataPath = join(__dirname, 'data', 'temp-emails.txt')
@@ -12,6 +13,8 @@ async function getTempEmailAddresses() {
 }
 
 const prefix = '/rai/images/svg/'
+const destination = join(process.cwd(), 'public', prefix)
+
 const bucketName = process.env.S3_BUCKET ?? 'my-bucket-name'
 const accesskey = process.env.S3_ACCESS_KEY ?? 'my-access'
 const secret = process.env.S3_SECRET ?? 'my-secret'
@@ -22,38 +25,24 @@ async function hashEmails(emails: string[]) {
 }
 
 async function main() {
-//   const client = createS3Client(region, accesskey, secret)
-
-//   //   remove all files
-//   const currentItems = await getCurrentItems(client, bucketName, prefix)
-//   currentItems?.forEach((item) => {
-//     if (item) {
-//       deleteFile(client, item, bucketName)
-//     }
-//   })
-
-  // add new files
-  const emails = await getTempEmailAddresses()
-  const hashed = await hashEmails(emails)
-
-  for (const email of hashed) {
-    const fileName = `${prefix}${email}.jpg`
-    console.log(`added file:${fileName}`)
-    // await putFile(client, fileName, counter.toString(), bucketName)
-    // counter++
-  }
-//   hashed.forEach((email, i) => {
-//     const fileName = `${prefix}${email}.jpg`
-//     console.log(fileName)
-//     putFile(client, fileName, i.toString(), bucketName)
-//   })
-
-//   const currentItems2 = await getCurrentItems(client, bucketName, prefix)
-//   if (currentItems2) {
-//     console.log(currentItems2)
-//   } else {
-//     console.log('no items to show')
-//   }
+    // console.log(destination);
+  await rimraf(destination)
+    const emails = await getTempEmailAddresses()
+    const hashed = await hashEmails(emails)
+    await makeDirectory(destination)
+    let counter = 1
+    for (const email of hashed) {
+      const fileName = `${email}.jpg`
+      const dest = join(destination, fileName)
+      console.log(`added file:${fileName}`)
+      try {
+        await writeFile(dest, email)
+        console.log(`file ${counter} of ${hashed.length}: ${fileName}`)
+      } catch (e) {
+        console.error(`Error writing file:. ${e}`)
+      }
+        counter++
+    }
 }
 
 main().catch(console.error)
