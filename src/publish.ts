@@ -6,7 +6,7 @@ if (process.env.EMAILS === undefined) {
   throw new Error('EMAILS environment variable is not set')
 }
 if (process.env.S3_BUCKET === undefined) {
-  throw new Error('BUCKET_NAME environment variable is empty')
+  throw new Error('S3_BUCKET environment variable is empty')
 }
 if (process.env.S3_ACCESS_KEY === undefined) {
   throw new Error('S3_ACCESS_KEY environment variable is empty')
@@ -19,9 +19,9 @@ const emails = process.env.EMAILS
 
 const region = 'eu-west-1'
 const prefix = '/rai/images/svg/'
-const bucketName = process.env.S3_BUCKET ?? 'my-bucket-name'
-const accesskey = process.env.S3_ACCESS_KEY ?? 'my-access'
-const secret = process.env.S3_SECRET ?? 'my-secret'
+const bucketName = process.env.S3_BUCKET
+const accesskey = process.env.S3_ACCESS_KEY
+const secret = process.env.S3_SECRET
 
 function getTempEmailAddresses() {
   return emails.split('\n') // this is for windows check in github secrets
